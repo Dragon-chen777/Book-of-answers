@@ -17,58 +17,61 @@ let answerArr10 = ["这会影响你的形象", "这件事会很麻烦", "这件�
 let answerArr11 = ["值得奋斗", "这种事情不要告诉别人", "只有一次机会", "总所周知", "重新想想", "注意细节", "做最坏的打算", "不要纠结了", "毫无道理", "结果会让你惊喜"]
 let answerArr12 = ["这不是你想要的", "寻找机会就行", "不要自作多情", "最后一次机会", "顺其自然", "学会释然", "别瞎折腾了", "再过几年", "不要忽视自己的力量", "尽在掌握之中"]
 let answerArr13 = ["地点不合适", "不作死就不会死", "当局者迷", "另择吉日", "时间会证明一切", "并非永恒", "倾听你内心的声音", "如你所愿", "遇上方知有", "不值得"]
-let answerArr14 = ["见好就收", "你猜", "时机尚不成熟", "这难以置信", "与你无关","放手","拭目以待"]
+let answerArr14 = ["见好就收", "你猜", "时机尚不成熟", "这难以置信", "与你无关", "放手", "拭目以待"]
 
 // 总答案
 let answerArr = ["你想要的答案都在这里"].concat(answerArr1).concat(answerArr2).concat(answerArr3).
-    concat(answerArr4).concat(answerArr5).concat(answerArr6).concat(answerArr7)
-    .concat(answerArr8).concat(answerArr9).concat(answerArr10).concat(answerArr11)
-    .concat(answerArr12).concat(answerArr13).concat(answerArr14)
-document.getElementById("pageLength").innerText=`现在请带着你的问题，闭上双眼，心里想一个1-${answerArr.length-1}之间的数字`
+concat(answerArr4).concat(answerArr5).concat(answerArr6).concat(answerArr7)
+	.concat(answerArr8).concat(answerArr9).concat(answerArr10).concat(answerArr11)
+	.concat(answerArr12).concat(answerArr13).concat(answerArr14)
+document.getElementById("pageLength").innerText = `现在请带着你的问题，闭上双眼，心里想一个1-${answerArr.length-1}之间的数字`
 // DOM添加答案
 answerArr.forEach((item, index) => {
-    const answer = document.createElement("div")
-    answer.classList.add("answer")
-    if (index == 0) {
-        answer.classList.add("cur")
-    } else {
-        answer.classList.add("next")
-    }
-    answer.innerHTML = `
+	const answer = document.createElement("div")
+	answer.classList.add("answer")
+	if (index == 0) {
+		answer.classList.add("cur")
+	} else {
+		answer.classList.add("next")
+	}
+	answer.innerHTML = `
             <div class="container">${item}</div>
             <div class="page">${index}</div>
         `
-    answerWrap.appendChild(answer)
+	answerWrap.appendChild(answer)
 });
 // 按钮点击
 btn.onclick = () => {
-    let num = page.value;
+	let num = page.value;
 
-    for (let i = 0, len = answerArr.length; i < len; i++) {
-        if (i < num) {
-            answerWrap.children[i].className = "answer prev"
-        } else if (i == num) {
-            answerWrap.children[i].className = "answer cur"
-        } else {
-            answerWrap.children[i].className = "answer next"
-            
-        }
-    }
+	for (let i = 0, len = answerArr.length; i < len; i++) {
+		if (i < num) {
+			answerWrap.children[i].className = "answer prev"
+		} else if (i == num) {
+			answerWrap.children[i].className = "answer cur"
+		} else {
+			answerWrap.children[i].className = "answer next"
+
+		}
+	}
 }
 document.body.onkeyup = function (event) {
-    event.keyCode==13?btn.click():false
+	event.keyCode == 13 ? btn.click() : false
 }
 randomBtn.onclick = () => {
-    // 产生随机的页数
-    let num = Math.floor(Math.random() * answerArr.length)
-    for (let i = 0, len = answerArr.length; i < len; i++) {
-        if (i < num) {
-            answerWrap.children[i].className = "answer prev"
-        } else if (i == num) {
-            answerWrap.children[i].className = "answer cur"
-        } else {
-            answerWrap.children[i].className = "answer next"
-            
-        }
-    }
+	// 产生随机的页数
+	let num = Math.random() * answerArr.length | 0
+	page.value = num
+	for (let i = 0, len = answerArr.length; i < len; i++) {
+		if (i < num) {
+			answerWrap.children[i].className = "answer prev"
+		} else if (i == num) {
+			answerWrap.children[i].className = "answer cur"
+		} else {
+			answerWrap.children[i].className = "answer next"
+		}
+	}
+}
+if (!!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+	document.getElementById('main').style['zoom'] = 0.7
 }
